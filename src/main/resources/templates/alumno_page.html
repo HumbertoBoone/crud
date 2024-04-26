@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Alumno Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 1em;
+        }
+        input[type="text"] {
+            padding: 0.5em 1em;
+            color: #fff;
+            background-color: #007BFF;
+            border:none;
+        }
+        table {
+            witdth: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 0.5em;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h2>Alumno Management</h2>
+
+    <form th:action="@{/alumnos/create}" th:object="${alumno}" method="post">
+        <input type="text" th:field="*{nombre}" placeholder="Nombre" />
+        <input type="text" th:field="*{apellidos}" placeholder="Apellidos" />
+        <input type="text" th:field="*{genero}" placeholder="Genero" />
+        <input type="text" th:field="*{fechaDeNacimiento}" placeholder="Fecha de Nacimiento" />
+        <input type="submit" value="Crear" />
+    </form>
+`
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Genero</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="alumno :${alumnos}">
+            <td th:text="${alumno.nombre}"></td>
+            <td th:text="${alumno.apellidos}"></td>
+            <td th:text="${alumno.genero}"></td>
+            <td th:text="${alumno.fechaDeNacimiento}"></td>
+            <td>
+                <form action="#" th:action="@{/alumnos/update/{id}(id=${alumno.id})}" th:object="${alumno}" method="post">
+                    <input type="hidden" name="_method" value="put">
+                    <input type="text" th:field="*{nombre}" placeholder="Nombre">
+                    <input type="text" th:field="*{apellidos}" placeholder="Apellidos">
+                    <input type="text" th:field="*{genero}" placeholder="Genero">
+                    <input type="text" th:field="*{fechaDeNacimiento}" placeholder="Fecha de Nacimiento">
+                    <input type="submit" value="Actualizar" />
+                </form>
+                <form action="#" th:action="@{/alumnos/delete/{id}(id=${alumno.id})}" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="submit" value="Borrar" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,1 @@
+INSERT INTO alumno (nombre, apellidos, genero, fecha_de_nacimiento) VALUES ('Juan', 'Gonzalez','Masculino', '2002-02-02');
